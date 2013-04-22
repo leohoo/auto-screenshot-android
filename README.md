@@ -6,7 +6,7 @@ Take screenshots of all connected android devices.
 Prepare the environment:
 
 - Install [android sdk](http://developer.android.com/sdk/index.html) if you have not installed it yet.
-- Set ANDROID_HOME=<path-to-android-sdk>
+- Set ```ANDROID_HOME=<path-to-android-sdk>```
 - Install the package:
 
 ```
