@@ -3,6 +3,12 @@ require_relative "device"
 PAUSE_BEFORE_SHOT = 5
 
 devices = `adb devices|tail -n +2|cut -f1`.split("\n")
+
+if devices.count==0
+	puts "Please connect devices to this machine and turn on their debug mode."
+	exit
+end
+
 start_time = DateTime.now.strftime "%Y%m%d-%H%M"
 screenshot_path = "screenshot/#{start_time}"
 
