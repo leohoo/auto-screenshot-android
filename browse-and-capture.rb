@@ -1,6 +1,8 @@
 require_relative "device"
 require 'optparse'
 
+WAIT_BEFORE_SHOT = 5
+
 options = {}
  
 optparse = OptionParser.new do|opts|
@@ -12,6 +14,11 @@ optparse = OptionParser.new do|opts|
   options[:urlfile] = nil
   opts.on( '-f', '--urlfile FILE', 'Read urls from FILE' ) do|file|
     options[:urlfile] = file
+  end
+
+  options[:wait_before_shot] = WAIT_BEFORE_SHOT
+  opts.on( '-w', '--wait seconds', 'Wait for seconds before taking screenshot' ) do|seconds|
+    options[:wait_before_shot] = seconds
   end
 
   # This displays the help screen, all programs are
@@ -38,8 +45,6 @@ else
 	urls = ARGV
 end
 
-PAUSE_BEFORE_SHOT = 5
-
 list_devices_cmd = "#{ENV["ANDROID_HOME"]}/platform-tools/adb devices|tail -n +2|cut -f1"
 devices = `#{list_devices_cmd}`.split("\n")
 
@@ -58,7 +63,7 @@ devices.each do |serial|
 		urls.each do |url|
 			launch_browser_cmd = "#{d.adb_command} shell am start -a android.intent.action.VIEW #{url}"
 			system(launch_browser_cmd)
-			sleep(PAUSE_BEFORE_SHOT)
+			sleep(options[:wait_before_shot].to_i)
 			model = d.model
 			screenshot_path = "screenshot/#{start_time}/#{model}"
 			`mkdir -p #{screenshot_path}`
