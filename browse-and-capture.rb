@@ -2,7 +2,8 @@ require_relative "device"
 
 PAUSE_BEFORE_SHOT = 5
 
-devices = `adb devices|tail -n +2|cut -f1`.split("\n")
+list_devices_cmd = "#{ENV["ANDROID_HOME"]}/platform-tools/adb devices|tail -n +2|cut -f1"
+devices = `#{list_devices_cmd}`.split("\n")
 
 if devices.count==0
 	puts "Please connect devices to this machine and turn on their debug mode."
