@@ -11,13 +11,8 @@ if devices.count==0
 end
 
 start_time = DateTime.now.strftime "%Y%m%d-%H%M"
-screenshot_path = "screenshot/#{start_time}"
-
-puts "screenshot will be put in #{screenshot_path}"
 
 url = ARGV[0]
-
-`mkdir -p #{screenshot_path}`
 
 threads = [];
 devices.each do |serial|
@@ -28,7 +23,10 @@ devices.each do |serial|
 		system(launch_browser_cmd)
 		sleep(PAUSE_BEFORE_SHOT)
 		model = d.model
-		d.screenshot(:name=>"#{screenshot_path}/#{model}.png")
+		screenshot_path = "screenshot/#{model}"
+		`mkdir -p #{screenshot_path}`
+
+		d.screenshot(:name=>"#{screenshot_path}/screenshot.png")
 		puts "screenshot taken for #{url} on device #{model}(#{serial})"
 	}	
 end
