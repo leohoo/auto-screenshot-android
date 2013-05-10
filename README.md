@@ -10,7 +10,7 @@ Prepare the environment:
 - Install the package:
 
 ```
-git clone git@ghe.amb.ca.local:liu-wei-gn/auto-screenshot-android.git
+git clone git@github.com:leohoo/auto-screenshot-android.git
 cd auto-screenshot-android
 bundle install
 ```
